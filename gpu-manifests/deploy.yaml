@@ -6,7 +6,7 @@ metadata:
   name: ollama
   namespace: ollama
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: ollama
@@ -23,9 +23,11 @@ spec:
         resources:
           requests:
             cpu: 1000m
-            memory: 2Gi
+            memory: 1Gi
+            nvidia.com/gpu: 1
           limits: 
-            cpu: 2000m
+            nvidia.com/gpu: 1
+            cpu: 3000m
             memory: 3Gi
       - image: curlimages/curl
         name: load-model
