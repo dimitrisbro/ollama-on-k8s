@@ -6,7 +6,9 @@ metadata:
   name: ollama
   namespace: ollama
 spec:
-  ports:
-  - port: 11434
   selector:
     app: ollama
+  ports:
+  - port: 11434
+    nodePort: 30300
+  type: NodePort
