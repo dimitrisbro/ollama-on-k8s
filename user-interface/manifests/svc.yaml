@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ollama-ui
+  name: ollama-ui
+  namespace: ollama
+spec:
+  ports:
+  - port: 8501
+    protocol: TCP
+    targetPort: 8501
+    nodePort: 30301
+  selector:
+    app: ollama-ui
+  type: NodePort

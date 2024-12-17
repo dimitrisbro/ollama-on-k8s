@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ollama-ui
+  name: ollama-ui
+  namespace: ollama
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ollama-ui
+  template:
+    metadata:
+      labels:
+        app: ollama-ui
+    spec:
+      containers:
+      - image: ghcr.io/dimitrisbro/ollama-ui:latest
+        name: ollama-ui
+        ports:
+        - containerPort: 8501
