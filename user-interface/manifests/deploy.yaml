@@ -21,3 +21,8 @@ spec:
         name: ollama-ui
         ports:
         - containerPort: 8501
+        env:
+        - name: OLLAMA_URL
+          value: "10.1.6.189"
+        - name: OLLAMA_PORT
+          value: "30300"
