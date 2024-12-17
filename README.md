@@ -4,7 +4,7 @@
 Run in docker container
 ```
 docker run -it -p 11434:11434 --name ollama ollama/ollama:latest
-docker exec -it ollama ollama run llama3.2
+docker exec -it ollama ollama run mistral
 ```
 
 ## K8s
@@ -21,34 +21,28 @@ curl http://localhost:11434/api/tags
 Download a model
 ```
 curl http://localhost:11434/api/pull -d '{
-  "name": "llama3.2"
+  "name": "mistral"
 }'
 ```
 
 Generate query
 ```
 curl http://localhost:11434/api/generate -d '{
-  "model": "llama3.2",
-  "prompt": "In exactly 10 words or less, explain why is the sky blue."
+  "model": "mistral",
+  "prompt": "What is the color of the sky"
 }'
 ```
 
 Generate query (no streaming)
 ```
 curl http://localhost:11434/api/generate -d '{
-  "model": "llama3.2",
+  "model": "mistral",
   "prompt": "In exactly 10 words or less, explain why is the sky blue.",
   "stream": false
 }'
 ```
 
 # Deploy with GPU
-
-## Create EKS cluster with GPU
-This step will take 15-20 minutes.
-```
-eksctl create cluster -f gpu-setup/cluster-config.yaml
-```
 
 ## Get GPU operator helm chart
 ```
@@ -80,4 +74,17 @@ kubectl patch clusterpolicies.nvidia.com/cluster-policy \
     -p '{"spec": {"devicePlugin": {"config": {"name": "time-slicing-config", "default": "any"}}}}'
 
 kubectl rollout restart deploy/gpu-operator -n gpu-operator
+```
+
+# ollama-UI
+## Docker
+Run in docker container
+```
+docker pull ghcr.io/dimitrisbro/ollama-ui:latest
+docker run -it -e OLLAMA_URL="http://localhost" -e OLLAMA_PORT="11434" -p 8501:8501 ghcr.io/dimitrisbro/ollama-ui:latest
+```
+
+## K8s
+```
+kubectl apply -f user-interface/manifests
 ```
