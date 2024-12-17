@@ -10,5 +10,4 @@ spec:
     app: ollama
   ports:
   - port: 11434
-    nodePort: 30300
-  type: NodePort
+  type: ClusterIP

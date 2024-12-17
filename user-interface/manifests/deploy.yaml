@@ -23,6 +23,6 @@ spec:
         - containerPort: 8501
         env:
         - name: OLLAMA_URL
-          value: "10.1.6.189"
+          value: ollama.ollama.svc.cluster.local
         - name: OLLAMA_PORT
-          value: "30300"
+          value: "11434"
